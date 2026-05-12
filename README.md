@@ -5,7 +5,6 @@
 # [Deep Learning] 신용 등급 분류 ML 및 인사이트 분석
 
 > **기간** : 2026.05.12.
-> **Target** : `Credit_Score` (Good, Standard, Poor 3단계 분류)
 
 # 1. Tech Stack & Tools
 
