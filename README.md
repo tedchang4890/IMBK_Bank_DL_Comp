@@ -79,7 +79,7 @@
 
 | Epoch | Train Loss | Valid Acc | 비고 |
 | --- | --- | --- | --- |
-| Epoch 1/200 | Train Loss: 1.0326 | Valid Acc: 0.6274 | Valid Acc: 0.7710 |
+| Epoch 1/200 | Train Loss: 1.0326 | Valid Acc: 0.6274 | 최고 성능 갱신 |
 | ... | ... | ... | ... |
 | Epoch 48/200 | Train Loss: 0.2150 | Valid Acc: 0.7710 | 최고 성능 갱신 |
 | ... | ... | ... | ... |
