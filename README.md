@@ -29,11 +29,15 @@
 
 # 3. Data Processing
 
-### **[전처리 아이디어 및 논리]**
+### **Feature Selection & Data Cleaning**
 
 * **불필요한 식별자 제거**: 개인 식별 정보(ID, SSN 등) 및 다중공선성 위험이 있는 `Type_of_Loan`을 삭제하여 모델 노이즈 최소화.
 * **결측치 처리 전략**: `Payment_of_Min_Amount`의 'NM' 등을 정보 누락 패턴 자체로 해석하여 별도 결측치 처리 없이 유지.
+
+### **Feature Selection & Data Cleaning**
 * **파생변수 고도화**: 단순 수치를 넘어 재무 건전성을 나타내는 **DTI(총부채상환비율)**, **EMI 대비 소득 비율**, **실질 가용 잔고**, **연체 심각도 지수** 등 12종의 파생변수를 생성하여 모델의 표현력 강화.
+
+### **Feature Selection & Data Cleaning**
 * **정규화**: 이상치에 강건한 `RobustScaler`를 사용하여 연속형 변수의 스케일을 조정.
 
 # 4. EDA
