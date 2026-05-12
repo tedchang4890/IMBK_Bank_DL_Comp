@@ -53,6 +53,11 @@
 
 # 4. EDA
 
+<img width="834" height="228" alt="스크린샷 2026-05-12 15 05 00" src="https://github.com/user-attachments/assets/838fc5c0-84b3-4dba-9c75-686560faf418" />
+
+<img width="432" height="360" alt="스크린샷 2026-05-12 15 13 36" src="https://github.com/user-attachments/assets/1284142c-8bd3-4b7b-813e-977d97b83fd1" />
+
+
 ### **[EDA 해석 및 타당성]**
 
 * **부채와 신용의 상관관계**: `Outstanding_Debt`가 높을수록 신용 등급이 급격히 하락(Good 대비 Poor가 약 2.5배 높음). 이는 대출 잔액 자체가 신용 평가의 가장 핵심 지표임을 시사함.
