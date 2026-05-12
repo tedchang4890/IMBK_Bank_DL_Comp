@@ -1,55 +1,79 @@
-# [Deep Learning] TabTransformer 기반 신용 등급 분류 및 인사이트 분석
-
-**일시** : 2026.05.12
-
-**데이터** : Kaggle Credit Score Classification (100,000 rows)
-
-**목표** : 다차원 금융 데이터를 활용한 신용 등급(Good, Standard, Poor) 3단계 분류
+제시해주신 딥러닝 컴페티션 평가 기준과 이전의 프로젝트 정리 형식을 결합하여, **신용 등급 분류(Credit Score Classification)** 프로젝트에 대한 깃허브용 리포트 및 제출용 주석 서술 내용을 정리해 드립니다.
 
 ---
 
-## 1. 전처리 아이디어 적합성 및 논리 (15점)
+# [Deep Learning] 신용 등급 분류 ML 및 인사이트 분석
 
-* **불필요 피처 삭제**: `ID`, `Customer_ID`, `SSN` 등 예측에 왜곡을 줄 수 있는 식별 정보와 `Type_of_Loan`을 제거하여 모델의 일반화 성능을 높였습니다.
-* **금융 도메인 기반 파생변수 생성 (12종)**: 단순 수치형 변수의 한계를 극복하고자 재무 건전성을 나타내는 핵심 지표를 설계했습니다.
-* **DTI(총부채상환비율)**: 연소득 대비 미지급 부채 비율 산출.
-* **Net_Available_Balance**: 월 급여에서 할부금과 투자금을 제외한 실질 여유 자금 계산.
-* **연체 심각도 지수(Delay_Severity_Index)**: 연체 일수와 연체 횟수를 곱하여 상환 위험도를 수치화.
+> **기간** : 2026.05.12.
+> **Target** : `Credit_Score` (Good, Standard, Poor 3단계 분류)
 
+# 1. Tech Stack & Tools
 
-* **Robust Scaling**: 이상치(Outlier)가 많은 금융 데이터 특성상, 중앙값 기반의 `RobustScaler`를 사용하여 모델 학습의 안정성을 확보했습니다.
+### **Language & Environment**
 
-## 2. EDA를 통한 타당한 해석 (20점)
+* **Python / PyTorch** : 딥러닝 모델(Transformer 계열) 설계 및 학습 메인 프레임워크
 
-* **해석 1 (부채 규모)**: 신용 등급이 낮을수록 미지급 잔액(Outstanding_Debt)이 기하급수적으로 증가하는 경향을 보입니다. (Good 대비 Poor 약 2.5배)
-* **해석 2 (상환 행태)**: 연체 일수와 적용 이자율은 등급 판별의 가장 강력한 지표입니다. Poor 등급은 Good 등급보다 연체 일수가 평균 2.9배 길며, 이는 고위험군을 분류하는 핵심 기준이 됩니다.
-* **결론**: 분석 결과 '부채 총량'과 '시간적 연체 성향'이 타겟 변수 결정에 지배적인 영향을 미침을 확인했으며, 이를 파생변수 생성의 논리적 근거로 활용했습니다.
+### **Data Analysis & Manipulation**
 
-## 3. Feature Selection 및 모델 선택/튜닝 기준 (25점)
+* **Pandas & NumPy** : 10만 건의 신용 데이터 전처리 및 파생변수 생성
+* **Matplotlib & Seaborn** : 신용 지표 간 상관관계 및 분포 분석 시각화
 
-* **모델 선택 (TabTransformer)**: 정형 데이터의 범주형 변수를 단순 임베딩이 아닌 Attention 메커니즘으로 처리하는 아키텍처를 채택했습니다. 피처 간의 복잡한 비선형적 상호작용을 파악하는 데 최적화되어 있습니다.
-* **손실 함수 최적화**: 클래스 불균형을 고려하여 `class_weights`([1.2, 0.8, 1.5])를 적용한 `CrossEntropyLoss`를 사용했습니다.
-* **학습 전략**: `AdamW` 옵티마이저와 `ReduceLROnPlateau` 스케줄러를 사용하여 검증 성능 정체 시 학습률을 0.5배 감소시키며 최적의 수렴 지점을 찾았습니다.
+### **Deep Learning Model**
 
-## 4. 개선사항 (25점)
+* **TabTransformer** : 범주형 데이터 처리를 위한 Self-Attention 기반 Transformer 아키텍처 활용
+* **Optimization** : `AdamW` Optimizer, `CrossEntropyLoss` (Class Weights 적용)
+* **Training Strategy** : `ReduceLROnPlateau` 스케줄러 및 `Early Stopping`을 통한 최적 모델 확보
 
-* **앙상블 모델 도입**: 현재 단일 딥러닝 모델만 활용했으나, CatBoost나 XGBoost와 같은 트리 기반 모델과 스태킹(Stacking)을 수행한다면 데이터의 정형적 패턴을 더 정밀하게 포착할 수 있을 것입니다.
-* **텍스트 마이닝**: 제외된 `Type_of_Loan` 텍스트 데이터에 대해 NLP 기법을 도입하여 대출의 성격(담보, 신용 등)에 따른 세부 위험도를 피처로 추가 활용할 여지가 있습니다.
-* **하이퍼파라미터 최적화**: `dim`, `depth`, `heads` 등 Transformer 핵심 파라미터에 대해 Optuna를 활용한 자동 튜닝을 수행한다면 추가적인 성능 향상이 가능합니다.
+# 2. Data Source
 
-## 5. Validation Score 및 결과 (5점)
+* **데이터 출처**: Kaggle Credit Score Classification Dataset (100,000 rows)
 
-* **최종 성능**: `Early Stopping`(Patience=8)을 통해 과적합을 방지한 결과, **최종 Best Valid Accuracy: 0.8XXX**를 달성했습니다.
-* **평가**: `GELU` 활성화 함수와 `Dropout` 설정을 통해 10만 건의 대규모 데이터셋에서도 안정적인 학습 곡선을 유지했으며, 최종 모델 가중치를 저장하여 추론의 신뢰도를 확보했습니다.
+# 3. Data Processing (평가기준 1번 대응)
+
+### **[전처리 아이디어 및 논리]**
+
+* **식별자 제거**: 개인 식별 정보(ID, SSN 등) 및 다중공선성 위험이 있는 `Type_of_Loan`을 삭제하여 모델 노이즈 최소화.
+* **결측치 처리 전략**: `Payment_of_Min_Amount`의 'NM' 등을 정보 누락 패턴 자체로 해석하여 별도 결측치 처리 없이 유지.
+* **파생변수 고도화**: 단순 수치를 넘어 재무 건전성을 나타내는 **DTI(총부채상환비율)**, **EMI 대비 소득 비율**, **실질 가용 잔고**, **연체 심각도 지수** 등 12종의 파생변수를 생성하여 모델의 표현력 강화.
+* **정규화**: 이상치에 강건한 `RobustScaler`를 사용하여 연속형 변수의 스케일을 조정.
+
+# 4. EDA (평가기준 2번 대응)
+
+### **[EDA 해석 및 타당성]**
+
+* **부채와 신용의 상관관계**: `Outstanding_Debt`가 높을수록 신용 등급이 급격히 하락(Good 대비 Poor가 약 2.5배 높음). 이는 대출 잔액 자체가 신용 평가의 가장 핵심 지표임을 시사함.
+* **연체 행동 분석**: `Delay_from_due_date`와 `Interest_Rate` 모두 신용 등급과 정비례 관계(약 2.9배 차이). 특히 연체 일수는 상환 의지와 직접 연결되어 판별력이 매우 높음.
+* **결론**: 모델 설계 시 '부채 규모'와 '연체 성향' 관련 피처들을 주요 판별 기준으로 설정하는 것이 타당함을 확인.
+
+# 5. ML/DL Modeling (평가기준 3번 대응)
+
+### **[Feature Selection & 모델 선택 기준]**
+
+* **모델 선택 (TabTransformer)**: 정형 데이터(Tabular)에서도 범주형 변수의 임베딩과 피처 간 상호작용을 효과적으로 학습하기 위해 Attention 메커니즘이 도입된 **TabTransformer**를 채택.
+* **튜닝 및 손실 함수**: 클래스 불균형을 해결하기 위해 `class_weights`를 적용한 CrossEntropy 사용. `dim=128`, `depth=4`, `heads=8` 설정을 통해 모델 복잡도와 학습 효율의 균형을 맞춤.
+* **검증 전략**: 8:2 Stratified Split을 통해 타겟 분포를 유지하며, 최고 성능 도달 시 `best_model.pth`를 저장하는 체크포인트 방식 도입.
+
+### **[성능 결과 (Validation Score)]**
+
+| Metric | Score | 비고 |
+| --- | --- | --- |
+| **Best Valid Accuracy** | **0.XXXX** (출력된 값 입력) | Early Stopping 적용 |
+| **Batch Size** | 1024 | AdamW (lr=0.001) |
+
+# 6. 개선사항 및 향후 과제 (평가기준 4번 대응)
+
+* **앙상블 시도**: 현재 단일 TabTransformer 모델에 CatBoost나 LightGBM 같은 부스팅 모델을 스태킹(Stacking)한다면 정형 데이터 특유의 패턴을 더 견고하게 잡을 수 있을 것으로 사료됨.
+* **피처 엔지니어링**: 'Type_of_Loan' 내의 텍스트 데이터를 NLP 기법(TF-IDF 등)으로 수치화하여 대출 종류별 위험도를 세밀하게 반영할 여지가 있음.
+* **하이퍼파라미터 최적화**: Optuna 등을 활용하여 Transformer의 Depth나 Head 수에 대한 자동 최적화 필요.
 
 ---
 
-### **[Project Summary Table]**
+### **[제출용 주석 가이드 (ipynb 포함용)]**
 
-| 항목 | 내용 |
-| --- | --- |
-| **Model** | TabTransformer (Self-Attention) |
-| **Optimizer** | AdamW (lr=0.001) |
-| **Scheduler** | ReduceLROnPlateau |
-| **Loss** | Weighted CrossEntropy |
-| **Patience** | 8 (Early Stopping) |
+위의 텍스트 중 [ ]로 표시된 핵심 요약 부분을 각 코드 셀 상단이나 마크다운 셀에 붙여넣으시면 평가 기준을 충족하는 완벽한 제출본이 됩니다.
+
+* **1번(전처리)**: `1-3. 파생변수 생성` 셀 위에 기술.
+* **2번(EDA)**: `시각화 코드` 하단 마크다운 셀에 기술.
+* **3번(모델/튜닝)**: `3. 모델 정의` 부분에 기술.
+* **4번(개선사항)**: 코드 맨 마지막 `결과 출력` 셀 하단에 기술.
+* **5번(Score)**: 학습 로그 결과와 함께 간단히 서술.
