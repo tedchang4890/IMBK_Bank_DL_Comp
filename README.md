@@ -81,7 +81,7 @@
 | --- | --- | --- | --- |
 | Epoch 1/200 | Train Loss: 1.0326 | Valid Acc: 0.6274 | 최고 성능 갱신 |
 | ... | ... | ... | ... |
-| Epoch 48/200 | Train Loss: 0.2150 | Valid Acc: 0.7710 | 최고 성능 갱신 |
+| Epoch 48/200 | Train Loss: 0.2150 | Valid Acc: 0.7710 | 최고 성능 갱신 (Best Valid Accuracy) |
 | ... | ... | ... | ... |
 | Epoch 56/200 | Train Loss: 0.1443 | Valid Acc: 0.7585 |  8번 연속 성능 개선이 없어 조기 종료 |
 
