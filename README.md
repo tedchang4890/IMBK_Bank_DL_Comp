@@ -25,18 +25,19 @@
 
 # 2. Data Source
 
-* **데이터 출처**: Kaggle Credit Score Classification Dataset (100,000 rows)
+* **데이터 출처**: 캐글 Credit Score Classification Dataset (row : 100,000, col : 28)
 
 # 3. Data Processing
 
 ### **Feature Selection & Data Cleaning**
 
 * **불필요한 식별자 제거**: 개인 식별 정보(**ID, SSN** 등) 및 다중공선성 위험이 있는 **Type_of_Loan**을 삭제하여 모델 노이즈 최소화.
-* **결측치 및 이상치 확인**: `Payment_of_Min_Amount`의 'NM' 등을 정보 누락 패턴 자체로 해석하여 별도 결측치 처리 없이 유지.
-* **파생변수**
+* **결측치 및 이상치 확인**: Payment_of_Min_Amount 컬럼의 **NM** 값을 정보 누락 패턴 자체로 해석하여 별도 결측치 처리 없이 유지.
+* **파생변수 생성**: 총부채상환비율, 월급 대비 월 할부금 부담률, 실질 가용 월 잔고 등 기존 피처를 활용한 13개 파생변수 생성
 
 ### **Encoding**
-* **Label Encoding**: 단순 수치를 넘어 재무 건전성을 나타내는 **DTI(총부채상환비율)**, **EMI 대비 소득 비율**, **실질 가용 잔고**, **연체 심각도 지수** 등 12종의 파생변수를 생성하여 모델의 표현력 강화. gender(Female: 0, Male: 1)와 country(France: 0, Germany: 1, Spain: 2)로 변수들을 수치화하여 구성
+* **Label Encoding**: gender(Female: 0, Male: 1)와 country(France: 0, Germany: 1, Spain: 2)로 변수들을 수치화하여 구성
+* Occupation(0: Accountant, 1: Architect, 2: Developer, 3: Doctor ... 14: Writer), Credit_Mix(0: Bad, 1: Good, 2: Standard), Payment_of_Min_Amount(0: NM, 1: No, 2: Yes), Payment_Behaviour(0: High_spent_Large_value_payments, 1: High_spent_Medium_value_payments ... 5: Low_spent_Small_value_payments), Credit_Score(0: Good, 1: Poor, 2: Standard)로 변수들을 수치화하여 구성
 
 ### **Feature Selection**
 * **Scaling**: 이상치에 강건한 **RobustScaler**를 사용하여 연속형 변수의 스케일을 조정.
