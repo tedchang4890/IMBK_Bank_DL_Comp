@@ -65,13 +65,13 @@
 
 # 5. DL
 
-### **[Feature Selection & 모델 선택 기준]**
+### Feature Selection & 모델 선택 기준
 
 * **모델 선택 (TabTransformer)**: 정형 데이터에서도 범주형 변수의 임베딩과 피처 간 상호작용을 효과적으로 학습하기 위해 **TabTransformer**를 채택.
 * **튜닝 및 손실 함수**: 클래스 불균형을 해결하기 위해 CrossEntropy 사용하고 `dim=32`, `depth=6`, `heads=8` 등 설정을 통해 모델 복잡도와 학습 효율의 균형을 맞춤.
 * **검증 전략**: 8:2 Split을 통해 타겟 분포를 유지하며, 최고 성능 도달 시 `best_model.pth`를 저장하는 체크포인트 방식 도입.
 
-### **[Validation Score]**
+### Validation Score
 
 | Epoch | Train Loss | Valid Acc | 비고 |
 | --- | --- | --- | --- |
