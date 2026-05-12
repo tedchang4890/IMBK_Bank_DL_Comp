@@ -38,9 +38,13 @@
 ### **Encoding**
 * **Label Encoding**: gender(Female: 0, Male: 1)와 country(France: 0, Germany: 1, Spain: 2)로 변수들을 수치화하여 구성
 * **Occupation**(0: Accountant, 1: Architect, 2: Developer, 3: Doctor ... 14: Writer)
+
   , **Credit_Mix**(0: Bad, 1: Good, 2: Standard)
+
   , **Payment_of_Min_Amount**(0: NM, 1: No, 2: Yes)
+
   , **Payment_Behaviour**(0: High_spent_Large_value_payments, 1: High_spent_Medium_value_payments ... 5: Low_spent_Small_value_payments)
+
   , **Credit_Score**(0: Good, 1: Poor, 2: Standard)로 변수들을 수치화하여 구성
 
 ### **Feature Selection**
