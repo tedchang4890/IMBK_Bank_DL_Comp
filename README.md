@@ -36,7 +36,9 @@
 * **파생변수 생성**: 총부채상환비율, 월급 대비 월 할부금 부담률, 실질 가용 월 잔고 등 기존 피처를 활용한 13개 파생변수 생성
 
 ### **Encoding**
-* **Label Encoding**:  **Occupation**(0: Accountant, 1: Architect, 2: Developer, 3: Doctor ... 14: Writer)
+* **Label Encoding**:
+
+  **Occupation**(0: Accountant, 1: Architect, 2: Developer, 3: Doctor ... 14: Writer)
 
   , **Credit_Mix**(0: Bad, 1: Good, 2: Standard)
 
