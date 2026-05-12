@@ -29,7 +29,7 @@
 
 * **불필요한 식별자 제거**: 개인 식별 정보(**ID, SSN** 등) 및 다중공선성 위험이 있는 **Type_of_Loan**을 삭제하여 모델 노이즈 최소화.
 * **결측치 및 이상치 확인**: **Payment_of_Min_Amount** 컬럼의 **NM** 값을 정보 누락 패턴 자체로 해석하여 별도 결측치 처리 없이 유지.
-* **파생변수 생성**: 총부채상환비율, 월급 대비 월 할부금 부담률, 실질 가용 월 잔고 등 기존 피처를 활용한 13개 파생변수 생성
+* **파생변수 생성**: 총부채상환비율, 월급 대비 월 할부금 부담률, 실질 가용 월 잔고 등 기존 피처를 활용한 12개 파생변수 생성
 
 ### **Encoding**
 * **Label Encoding**:
@@ -77,10 +77,10 @@
 
 | Epoch | Train Loss | Valid Acc | 비고 |
 | --- | --- | --- | --- |
-| Epoch 1/200 | Train Loss: 1.0326 | Valid Acc: 0.6274 | 최고 성능 갱신 |
+| Epoch 1/200 | Train Loss: 1.0318 | Valid Acc: 0.6626 | 최고 성능 갱신 |
 | ... | ... | ... | ... |
-| Epoch 48/200 | Train Loss: 0.2150 | Valid Acc: 0.7710 | 최고 성능 갱신 (Best Valid Accuracy) |
+| Epoch 47/200 | Train Loss: 0.2150 | Valid Acc: 0.7748 | 최고 성능 갱신 (Best Valid Accuracy) |
 | ... | ... | ... | ... |
-| Epoch 56/200 | Train Loss: 0.1443 | Valid Acc: 0.7585 |  8번 연속 성능 개선이 없어 조기 종료 |
+| Epoch 67/200 | Train Loss: 0.1194 | Valid Acc: 0.7670 |  20번 연속 성능 개선이 없어 조기 종료 |
 
-### 최종적으로 Valid Acc의 최고값은 0.771로 도출.
+### 최종적으로 Valid Acc의 최고값은 0.7748로 도출.
