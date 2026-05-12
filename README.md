@@ -77,13 +77,13 @@
 
 ### **[Validation Score]**
 
-| Metric | Score | 비고 |
-| --- | --- | --- |
-| Epoch 1/200 | Train Loss: 1.0326 | Valid Acc: 0.6274 |
-| ... | ... | ... |
-| Epoch 48/200 | Train Loss: 0.2150 | Valid Acc: 0.7710 |
-| ... | ... | ... |
-| Epoch 56/200 | Train Loss: 0.1443 | Valid Acc: 0.7585 |
+| Epoch | Train Loss | Valid Acc | 비고 |
+| --- | --- | --- | --- |
+| Epoch 1/200 | Train Loss: 1.0326 | Valid Acc: 0.6274 | Valid Acc: 0.7710 |
+| ... | ... | ... | ... |
+| Epoch 48/200 | Train Loss: 0.2150 | Valid Acc: 0.7710 | 최고 성능 갱신 |
+| ... | ... | ... | ... |
+| Epoch 56/200 | Train Loss: 0.1443 | Valid Acc: 0.7585 |  8번 연속 성능 개선이 없어 조기 종료 |
 
 # 6. 개선사항 및 향후 과제
 
